@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fullscreen Video</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    video {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video element with audio and controls -->
+  <video id="myVideo" src="adv wd.mp4" controls></video>
+
+  <!-- Button to trigger fullscreen -->
+  <button onclick="goFullscreen()">Go Fullscreen</button>
+
+  <script>
+    function goFullscreen() {
+      const video = document.getElementById("myVideo");
+
+      // Request full screen
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen(); // Safari
+      } else if (video.msRequestFullscreen) {
+        video.msRequestFullscreen(); // IE11
+      }
+
+      // Play with audio
+      video.muted = false;
+      video.play().catch(err => {
+        console.error("Autoplay failed:", err);
+      });
+    }
+  </script>
+
+</body>
+</html>

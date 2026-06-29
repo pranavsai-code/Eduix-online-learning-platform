@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Certificate Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    canvas { margin-top: 20px; border: 1px solid #ccc; }
+    input, button { padding: 10px; font-size: 16px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <h2>Enter Your Name</h2>
+  <input type="text" id="nameInput" placeholder="Your Name">
+  <button onclick="generateCertificate()">Generate Certificate</button>
+
+  <br>
+  <canvas id="certificateCanvas" width="1086" height="768"></canvas>
+  <br>
+  <button onclick="downloadCertificate()">Download Certificate</button>
+
+  <script>
+    const canvas = document.getElementById('certificateCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const image = new Image();
+    image.src = "ADV WD.png"; // Certificate image path
+
+    function generateCertificate() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (!name) {
+        alert('Please enter your name!');
+        return;
+      }
+
+      image.onload = () => {
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        // Draw name
+        ctx.font = '60px Arial';
+        ctx.fillStyle = '#000';
+        ctx.textAlign = 'center';
+        ctx.fillText(name, canvas.width / 2, 420); // Adjust position as needed
+      };
+
+      // If already loaded
+      if (image.complete) {
+        image.onload();
+      }
+    }
+
+    function downloadCertificate() {
+      const link = document.createElement('a');
+      link.download = 'certificate.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+
+</body>
+</html>
